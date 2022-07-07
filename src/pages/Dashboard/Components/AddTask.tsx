@@ -40,13 +40,12 @@ const AddTask = ({ open, handleClose }: Props) => {
         priority: data.priority,
       })
     );
-    console.log(data);
     reset();
     handleClose();
   };
 
   return (
-    <Dialog fullWidth maxWidth="lg" open={open} onClose={handleClose}>
+    <Dialog maxWidth="lg" open={open} onClose={handleClose}>
       <DialogContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
