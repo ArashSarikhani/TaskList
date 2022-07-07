@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface tasksState {
-  id: any;
+  id: number;
   title: string;
-  descrption: string;
+  description: string;
   completed: boolean;
   gift: string;
   priority: string;
@@ -17,14 +17,29 @@ export const tasksSlice = createSlice({
   reducers: {
     addTask: (state, action) => {
       const newTask: tasksState = {
-        id: new Date(),
+        id: Date.now(),
         title: action.payload.title,
-        descrption: action.payload.descrption,
+        description: action.payload.description,
         completed: false,
         gift: action.payload.gift,
         priority: action.payload.priority,
       };
       state.push(newTask);
+    },
+    editTask: (state, action) => {
+      const index = state.findIndex((elem) => elem.id === action.payload.id);
+      if (index !== -1) {
+        state[index].title = action.payload.title;
+        state[index].description = action.payload.description;
+        state[index].gift = action.payload.gift;
+        state[index].priority = action.payload.priority;
+      }
+    },
+    completeTask: (state, action) => {
+      const index = state.findIndex((elem) => elem.id === action.payload.id);
+      if (index !== -1) {
+        state[index].completed = true;
+      }
     },
     deleteTask: (state, action) => {
       return state.filter((item) => item.id !== action.payload.id);
@@ -33,6 +48,7 @@ export const tasksSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addTask, deleteTask } = tasksSlice.actions;
+export const { addTask, deleteTask, editTask, completeTask } =
+  tasksSlice.actions;
 
 export default tasksSlice.reducer;
