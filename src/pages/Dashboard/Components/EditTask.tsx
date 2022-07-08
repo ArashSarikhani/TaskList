@@ -47,7 +47,15 @@ const EditTask = ({ open, handleClose, task }: Props) => {
   };
 
   return (
-    <Dialog fullWidth maxWidth="lg" open={open} onClose={handleClose}>
+    <Dialog
+      fullWidth
+      maxWidth="lg"
+      open={open}
+      onClose={() => {
+        handleClose();
+        reset();
+      }}
+    >
       <DialogContent>
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextField
@@ -122,7 +130,7 @@ const EditTask = ({ open, handleClose, task }: Props) => {
               onClick={() => handleSubmit(onSubmit)}
               variant="contained"
             >
-              Add To Tasks
+              Edit Task
             </RedButton>
           </Stack>
         </form>
