@@ -26,6 +26,7 @@ const TaskCard = ({ task, handleEditOpen, handleDetailOpen }: Props) => {
         border: "1px solid #ccc",
         borderRadius: 5,
       }}
+      data-testid={`task-card-${task.title}`}
       display="flex"
       onClick={() => {
         handleDetailOpen(task);
@@ -65,6 +66,7 @@ const TaskCard = ({ task, handleEditOpen, handleDetailOpen }: Props) => {
             }}
             variant="contained"
             color="warning"
+            data-testid={`task-card-complete-${task.title}`}
           >
             Done Task
           </Button>
@@ -75,6 +77,7 @@ const TaskCard = ({ task, handleEditOpen, handleDetailOpen }: Props) => {
             }}
             variant="contained"
             color="success"
+            data-testid={`task-card-edit-${task.title}`}
           >
             Edit Task
           </Button>
