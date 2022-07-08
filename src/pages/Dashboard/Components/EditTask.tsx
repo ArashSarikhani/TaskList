@@ -48,7 +48,6 @@ const EditTask = ({ open, handleClose, task }: Props) => {
 
   return (
     <Dialog
-      fullWidth
       maxWidth="lg"
       open={open}
       onClose={() => {
