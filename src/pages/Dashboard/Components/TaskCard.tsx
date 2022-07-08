@@ -1,37 +1,35 @@
-import React from "react";
-import type { tasksState } from "../../../redux/taskSlice";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import EditTask from "./EditTask";
-import { completeTask } from "../../../redux/taskSlice";
+import React from "react";
 import { useDispatch } from "react-redux";
+import type { tasksState } from "../../../redux/taskSlice";
+import { completeTask } from "../../../redux/taskSlice";
 
 type Props = {
-  index: number;
   task: tasksState;
+  handleEditOpen: (task: tasksState) => void;
+  handleDetailOpen: (task: tasksState) => void;
 };
 
-const TaskCard = ({ index, task }: Props) => {
-  const [open, setOpen] = React.useState(false);
-  const [selectedTask, setSelectedTask] = React.useState<tasksState>();
+const TaskCard = ({ task, handleEditOpen, handleDetailOpen }: Props) => {
   const dispatch = useDispatch();
 
-  const handleClickOpen = (task: tasksState) => {
-    setSelectedTask(task);
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
   return (
     <Box
-      sx={{ m: 2, p: 2, border: "1px solid #ccc", borderRadius: 5 }}
-      key={index}
+      sx={{
+        cursor: "pointer",
+        m: 2,
+        p: 2,
+        border: "1px solid #ccc",
+        borderRadius: 5,
+      }}
       display="flex"
+      onClick={() => {
+        handleDetailOpen(task);
+      }}
     >
       <Box flex="1 1 auto">
         <Typography variant="h6" gutterBottom component="div">
@@ -61,7 +59,8 @@ const TaskCard = ({ index, task }: Props) => {
         </Box>
         <Stack direction="row" spacing={2}>
           <Button
-            onClick={() => {
+            onClick={(event) => {
+              event.stopPropagation();
               dispatch(completeTask({ id: task?.id }));
             }}
             variant="contained"
@@ -70,7 +69,10 @@ const TaskCard = ({ index, task }: Props) => {
             Done Task
           </Button>
           <Button
-            onClick={() => handleClickOpen(task)}
+            onClick={(event) => {
+              event.stopPropagation();
+              handleEditOpen(task);
+            }}
             variant="contained"
             color="success"
           >
@@ -78,7 +80,6 @@ const TaskCard = ({ index, task }: Props) => {
           </Button>
         </Stack>
       </Stack>
-      <EditTask open={open} handleClose={handleClose} task={selectedTask} />
     </Box>
   );
 };
