@@ -13,7 +13,13 @@ type Props = {
 const DoneTaskCard = ({ index, task }: Props) => {
   return (
     <Box
-      sx={{ width: 150, p: 2, border: "1px solid #ccc", borderRadius: 5 }}
+      sx={{
+        p: 2,
+        mb: 2,
+        width: 400,
+        border: "1px solid #ccc",
+        borderRadius: 5,
+      }}
       key={index}
       display="flex"
     >
